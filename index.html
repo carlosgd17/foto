@@ -127,6 +127,27 @@
         display: none; /* Ocultar al inicio */
       }
 
+      #temperatura {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 20px auto;
+      }
+
+      #valor-temperatura {
+        font-weight: bold;
+        color: #000; /* Color por defecto */
+      }
+
+      #valor-temperatura.calor {
+        color: #f00; /* Rojo */
+      }
+
+      #valor-temperatura.frio {
+        color: #00f; /* Azul */
+      }
+
       /* Estilos para pantallas más pequeñas */
       @media only screen and (max-width: 600px) {
         #led-control {
@@ -172,6 +193,11 @@
         Terminar con la sesión
       </button>
       <div id="message">La sesión ha terminado</div>
+    </div>
+    <div id="info-control">
+      <div id="temperatura">
+        <span id="valor-temperatura"></span>
+      </div>
     </div>
 
     <div id="info-control">
@@ -339,6 +365,23 @@
           infoElements[0].style.display = "block";
         }
       }
+
+      function mostrarTemperatura() {
+        const temperaturaActual =
+          Math.floor(Math.random() * (35 - 15 + 1)) + 15;
+        const elementoTemperatura =
+          document.getElementById("valor-temperatura");
+        elementoTemperatura.textContent = `${temperaturaActual}°C`;
+
+        if (temperaturaActual >= 25) {
+          elementoTemperatura.classList.add("calor");
+        } else {
+          elementoTemperatura.classList.remove("calor");
+          elementoTemperatura.classList.add("frio");
+        }
+      }
+
+      mostrarTemperatura();
     </script>
   </body>
 </html>
