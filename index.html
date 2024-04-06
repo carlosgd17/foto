@@ -301,6 +301,17 @@
         if (confirm("¿Estás seguro de que quieres comenzar con esta sesión?")) {
           startTimer(seconds);
           showInfo(infoIdToShow);
+          startTreatment(infoIdToShow);
+        }
+      }
+
+      function startTreatment(infoIdToShow) {
+        if(infoIdToShow === 'info-pain-relief') {
+          fetch('http://192.168.1.1/pain');
+        } else if(infoIdToShow === 'info-tissue-treatment') {
+            fetch('http://192.168.1.1/tissue');
+        } else if(infoIdToShow === 'info-hair-growth') {
+            fetch('http://192.168.1.1/hair');
         }
       }
 
@@ -348,6 +359,8 @@
         document.getElementById("timer-container").style.display = "none";
         document.getElementById("cancel").style.display = "none";
         showInfo(infoIdToShow);
+
+        fetch('http://192.168.1.1/cancel');
       }
 
       function showInfo(infoId) {
