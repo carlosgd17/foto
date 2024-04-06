@@ -54,6 +54,10 @@ void setup() {
 void loop() {
   sensors.requestTemperatures();
   temperatura = sensors.getTempCByIndex(0);
+  Serial.println(temperatura);
+  if(temperatura > 30){
+    cancelTreatment();
+  }
   server.handleClient();
 }
 
@@ -70,7 +74,12 @@ void painTreatment() {
 
 void tissueTreatment() {
   Serial.println("\ntissue\n");
-  analogWrite(tissueLED, 125);
+  for(int i = 0; i < 5; i++){
+    analogWrite(tissueLED, 255);
+    delay(1000);
+    analogWrite(tissueLED, 125);
+    delay(1000);
+  }
   server.send(200, "text/html", SendHTML()); 
 }
 
@@ -316,7 +325,7 @@ String SendHTML(){
 "          </li>\n"
 "        </ul>\n"
 "        <h3>Tiempo recomendado:</h3>\n"
-"        <p>2-3 sesiones por semana, de 10 a 20 minutos por sesión.</p>\n"
+"        <p>6 minutos despues del ejercicio.</p>\n"
 "        <h3>Posibles resultados:</h3>\n"
 "        <ul>\n"
 "          <li>Disminución significativa del dolor e inflamación.</li>\n"
@@ -378,7 +387,7 @@ String SendHTML(){
 "          </li>\n"
 "        </ul>\n"
 "        <h3>Tiempo recomendado:</h3>\n"
-"        <p>3-4 sesiones por semana, de 20 a 30 minutos por sesión.</p>\n"
+"        <p>Dos sesiones a la semana (5 minutos por sesion), por 6 meses.</p>\n"
 "        <h3>Posibles resultados:</h3>\n"
 "        <ul>\n"
 "          <li>Crecimiento visible del cabello en 3 a 6 meses.</li>\n"
@@ -428,6 +437,7 @@ String SendHTML(){
 "            clearInterval(countdown);\n"
 "            messageDisplay.style.display = \"block\";\n"
 "            cancelBtn.style.display = \"none\";\n"
+"            fetch('http://192.168.1.1/cancel');\n"
 "            return;\n"
 "          }\n"
 "\n"
@@ -476,8 +486,8 @@ String SendHTML(){
 "\n"
 "      function mostrarTemperatura() {\n"
 "        const temperaturaActual =\n"
-+ String(temperatura) + ";\n"
 //"          Math.floor(Math.random() * (35 - 15 + 1)) + 15;\n"
++ String(temperatura) + ";\n"
 "        const elementoTemperatura =\n"
 "          document.getElementById(\"valor-temperatura\");\n"
 "        elementoTemperatura.textContent = `${temperaturaActual}°C`;\n"

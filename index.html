@@ -221,7 +221,7 @@
           </li>
         </ul>
         <h3>Tiempo recomendado:</h3>
-        <p>2-3 sesiones por semana, de 10 a 20 minutos por sesión.</p>
+        <p>6 minutos despues del ejercicio.</p>
         <h3>Posibles resultados:</h3>
         <ul>
           <li>Disminución significativa del dolor e inflamación.</li>
@@ -283,7 +283,7 @@
           </li>
         </ul>
         <h3>Tiempo recomendado:</h3>
-        <p>3-4 sesiones por semana, de 20 a 30 minutos por sesión.</p>
+        <p>Dos sesiones a la semana (5 minutos por sesion), por 6 meses.</p>
         <h3>Posibles resultados:</h3>
         <ul>
           <li>Crecimiento visible del cabello en 3 a 6 meses.</li>
@@ -333,6 +333,7 @@
             clearInterval(countdown);
             messageDisplay.style.display = "block";
             cancelBtn.style.display = "none";
+            fetch('http://192.168.1.1/cancel');
             return;
           }
 
